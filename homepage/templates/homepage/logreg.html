@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{%static 'css/sign_style.css'%}">
+</head>
+<body>
+  <div class="container" id="container">
+      <div class="form-container sign-up-container">
+          <form action="{%url 'login'%}" method="post">
+              {% csrf_token %}
+              <h1>Создать аккаунт</h1>
+<!--              <div class="social-container">-->
+<!--                  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+<!--                  <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+<!--                  <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+<!--              </div>-->
+<!--              <input type="text" placeholder="Name" />-->
+<!--              <input type="email" placeholder="Email" />-->
+<!--              <input type="password" placeholder="Password" />-->
+                    {{fr.login}}
+                    {{fr.password1}}
+                    {{fr.sfc}}
+                    {{fr.address}}
+                    {{fr.phone_num}}
+              <button type="submit">Зарегистрироваться</button>
+          </form>
+      </div>
+      <div class="form-container sign-in-container">
+          <form action="{%url 'login'%}" method="post">
+              {% csrf_token %}
+              <h1>Войти</h1>
+<!--              <input type="email" placeholder="Login" />-->
+<!--              <input type="password" placeholder="Password" />-->
+                    {{fl.login}}
+                    {{fl.password}}
+              <a href="#">Забыли пароль?</a>
+              <button type="submit">Войти</button>
+          </form>
+      </div>
+      <div class="overlay-container">
+          <div class="overlay">
+              <div class="overlay-panel overlay-left">
+                  <h1>С возвращением!</h1>
+                  <p>Чтобы оставаться на связи с нами, пожалуйста, войдите, используя свои личные данные.</p>
+                  <button class="ghost" id="signIn">Войти</button>
+              </div>
+              <div class="overlay-panel overlay-right">
+                  <h1>Привет, друг!</h1>
+                  <p>Введите свои личные данные и начните путешествие вместе с нами</p>
+                  <button class="ghost" id="signUp">Зарегистрироваться</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script src="{%static 'js/log_script.js'%}"></script>
+</body>
+</html>
