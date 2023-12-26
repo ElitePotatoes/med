@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Enter New Diganosis</h1>
-      <form action="{{id}}" method="post">
-          {% csrf_token %}
-          {{f.diag}}
-          <button type="submit">Enter</button>
-      </form>
-</body>
-</html>
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="new-doc section">
+        <div class="container">
+            <div class="row">
+                <h1>Enter New Diganosis</h1>
+                <form class="new-doc__form" action="{{ id }}" method="post">
+                    {% csrf_token %}
+                    {{ f.diag }}
+                    <button class="new-doc__button button" type="submit">Enter</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

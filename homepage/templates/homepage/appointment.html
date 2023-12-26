@@ -1,18 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-	<form action="{%url 'appointment' profes id%}" method="post">
-        {% csrf_token %}
-            <p>
-                <label >Дата и время: </label>
-                {{ftt.meettime}}
-<!--                <input type="datetime-local" id="localdate" name="date"/>-->
-                <button type="submit">Ready!</button>
-            </p>
-    </form>
-</body>
-</html>
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="doctors section">
+        <div class="container">
+            <div class="row">
+                <div class="doctor-category__back col-xs-2">
+                    <a href="{% url 'doctor' profes %}" class="doctor-category__link">К списку</a>
+                </div>
+                <div class="doctor-category col-xs-10">
+                    <a class="doctor-category__link">{{ doctor.contact_id.sfc }}</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-1 col-xs-10 doctor doctor--inline">
+                    <div class="doctor__person">
+                        <img class="img-responsive" src="{% static 'img/member-1.jpg' %}" alt="member-1">
+                    </div>
+                    <div class="doctor__details">
+                        <p class="doctor__name">{{ doctor.contact_id.sfc }}</p>
+                        <p class="doctor__staff">{{ prof.profession }}</p>
+                        <ul class="doctor__dates">
+                            <li class="doctor__date">
+                                <span>Понедельник - Пятница</span>
+                                <span>8:00 - 17:00</span>
+                            </li>
+                            <li class="doctor__date">
+                                <span>Суббота</span>
+                                <span>9:00 - 16:00</span>
+                            </li>
+                        </ul>
+                        <form class="doctor__form" action="{% url 'appointment' profes id %}" method="post">
+                            {% csrf_token %}
+                            <div class="doctor__field">
+                                <label>Укажите дату для записи: </label>
+                                {{ ftt.meettime }}
+                                <button class="doctor__button" type="submit">Отправить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

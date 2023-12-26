@@ -1,30 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Doctors</title>
-    <link rel="stylesheet" href="{%static 'css/doc_style.css'%}">
-</head>
-<body>
-<!--    <form action="doctors" method="post">-->
-        {% csrf_token %}
-        {%if choose%}
-            <div class="vars">
-                <a class="vars2">{{choose}}</a>
-            </div>
-            {%for prof in profs%}
-                <div class="vars">
-                    <a href="{%url 'appointment' choose prof.id %}" class="vars2">{{prof.name}}</a>
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="doctors section">
+        <div class="container">
+            <!--    <form action="doctors" method="post">-->
+            {% csrf_token %}
+            {% if choose %}
+                <div class="row">
+                    <div class="doctor-category__back col-xs-2">
+                        <a href="{% url 'doctors' %}" class="doctor-category__link">К списку</a>
+                    </div>
+                    <div class="doctor-category col-xs-10">
+                        <a class="doctor-category__link">{{ choose }}</a>
+                    </div>
                 </div>
-            {% endfor %}
-        {%else%}
-            {%for prof in profs%}
-                <div class="vars">
-                    <a href="{%url 'doctor' prof%}" class="vars2">{{prof}}</a>
+                <div class="row doctors">
+                    {% for prof in profs %}
+                        <div class="col-md-4 doctor">
+                            <div class="doctor__person">
+                                <img class="img-responsive" src="{% static 'img/member-1.jpg' %}" alt="member-1">
+                            </div>
+                            <div class="doctor__details">
+                                <p class="doctor__name">{{ prof.name }}</p>
+                                <p class="doctor__staff">{{ prof.profession }}</p>
+                                <ul class="doctor__dates">
+                                    <li class="doctor__date">
+                                        <span>Понедельник - Пятница</span>
+                                        <span>8:00 - 17:00</span>
+                                    </li>
+                                    <li class="doctor__date">
+                                        <span>Суббота</span>
+                                        <span>9:00 - 16:00</span>
+                                    </li>
+                                </ul>
+                                <a href="{% url 'appointment' choose prof.id %}" class="doctor__button">Записаться</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        {%endif%}
-<!--    </form>-->
-</body>
-</html>
+            {% else %}
+                <div class="row">
+                    <div class="doctor-category col-xs-12">
+                        <a class="doctor-category__link">Категории врачей</a>
+                    </div>
+                </div>
+                <div class="row doctor-sections">
+                    {% for prof in profs %}
+                        <div class="doctor-section col-xs-3">
+                            <a href="{% url 'doctor' prof %}" class="doctor-section__link">{{ prof }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <!--    </form>-->
+        </div>
+    </section>
+{% endblock %}

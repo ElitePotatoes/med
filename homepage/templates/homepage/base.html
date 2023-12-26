@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DOCTOR - Responsive HTML &amp; Bootstrap Template</title>
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,800,700,300' rel='stylesheet'
+          type='text/css'>
+</head>
+<body>
+<header class="top-header">
+    <div class="container">
+        <div class="row top-header__nav">
+            <div class="col-xs-4 header-logo">
+                <a href="{% url 'homepage' %}"><img src="{% static 'img/logo2.png' %}" alt="" class="img-responsive logo"></a>
+            </div>
+            <div class="col-md-8">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid nav-bar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="menu active" href="#homepage">Главная</a></li>
+                                <li><a class="menu" href="#about">О нас</a></li>
+                                <li><a class="menu" href="#service">Услуги </a></li>
+                                <li><a class="menu" href="#team">Команда</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a class="menu" href="{% url 'timetable' %}">{{ request.user.username }}</a>
+                                    </li>
+                                    <li><a class="menu" href="{% url 'logout' %}">Выйти</a></li>
+                                {% else %}
+                                    <li><a class="menu" href="{% url 'login' %}">Войти</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<script src="{% static 'js/modernizr.js' %}"></script>
+<script src="{% static 'js/html5shiv.js' %}"></script>
+<script src="{% static 'js/respond.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.1.js' %}"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script src="{% static 'js/gmaps.js' %}"></script>
+<script src="{% static 'js/smoothscroll.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

@@ -196,6 +196,7 @@ def download_csv(request):
 
 def appointment(request, profes, id):
     formTT = AppointmentForm()
+    doc = Doctors.objects.get(contact_id=id)
 
     if request.method == 'POST':
         formTT = AppointmentForm(request.POST)
@@ -203,12 +204,11 @@ def appointment(request, profes, id):
             print(formTT.cleaned_data.get('meetdate'))
 
             cus = Customers.objects.get(contact_id=Contact.objects.get(user=request.user.id).id)
-            doc = Doctors.objects.get(contact_id=id)
 
             meet = Timetable(customer=cus, doctor=doc, meetdate=formTT.cleaned_data.get('meettime'))
             meet.save()
             return redirect('/')
-    return render(request, "homepage/appointment.html", {'ftt': formTT, 'profes': profes, 'id': id})
+    return render(request, "homepage/appointment.html", {'ftt': formTT, 'profes': profes, 'id': id, 'doctor':  doc})
 
 def new_doctor(request):
     form = AddDocProf()
@@ -228,7 +228,6 @@ def change_diganosis(request, id):
     if request.method == 'POST':
         form = DiagForm(request.POST)
         if form.is_valid():
-
             newd = Timetable.objects.get(id=id)
             newd.diagnosis = form.cleaned_data.get('diag')
             newd.save()
